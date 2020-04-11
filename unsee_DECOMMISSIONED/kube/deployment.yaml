@@ -1,0 +1,43 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: unsee_DECOMMISSIONED
+  namespace: sharedservices
+  labels:
+    app: unsee_DECOMMISSIONED
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: unsee_DECOMMISSIONED
+    spec:
+      containers:
+      - name: unsee_DECOMMISSIONED
+        securityContext:
+          privileged: true
+        image: cloudflare/unsee_DECOMMISSIONED:v0.9.2
+        imagePullPolicy: Always
+        securityContext:
+          privileged: true
+        ports:
+        - containerPort: 8080
+          name: unsee_DECOMMISSIONED
+        resources:
+          requests:
+            cpu: 500m
+            memory: 2Gi
+          limits:
+            cpu: 1000m
+            memory: 2Gi
+        volumeMounts:
+          - name: config-volume
+            mountPath: /unsee_DECOMMISSIONED.yml
+            subPath: unsee_DECOMMISSIONED.yml
+      volumes:
+      - name: config-volume
+        configMap:
+          name: unsee_DECOMMISSIONED-config
+          items:
+            - key: unsee_DECOMMISSIONED.yml
+              path: unsee_DECOMMISSIONED.yml

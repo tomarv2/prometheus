@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: prometheus-alertmanager
+  namespace: sharedservices
+  labels:
+    app: prometheus-alertmanager
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: prometheus-alertmanager
+    spec:
+      containers:
+      - name: prometheus-alertmanager
+        securityContext:
+          privileged: true
+        image: prom/alertmanager:latest
+        imagePullPolicy: Always
+        command:
+          - "/bin/sh"
+          - "-c"
+          - >
+            set -x;
+            /bin/alertmanager --config.file="/mnt/monitoring/alertmanager/config.yaml"
+        securityContext:
+          privileged: true
+        ports:
+        - containerPort: 9093
+          name: prometheus
+        resources:
+          requests:
+            cpu: 500m
+            memory: 2Gi
+          limits:
+            cpu: 1000m
+            memory: 2Gi
+        volumeMounts:
+        - name: monitoring-efs-volume
+          mountPath: /mnt
+      volumes:
+      - name: monitoring-efs-volume
+        persistentVolumeClaim:
+          claimName: monitoring-efs-pvc
+

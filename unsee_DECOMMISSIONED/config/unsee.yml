@@ -1,0 +1,7 @@
+alertmanager:
+  interval: 1m
+  servers:
+    - name: AWS
+      uri: http://prometheus-am.demo.com
+      timeout: 20s
+      proxy: false

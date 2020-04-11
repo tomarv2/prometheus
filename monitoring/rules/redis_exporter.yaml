@@ -1,0 +1,12 @@
+groups:
+- name: InfrastructureRedisFailure.rules
+  rules:
+  - alert: InfrastructureRedisFailure
+    expr: redis_up{job="redis_exporter"} != 1
+    for: 1m
+    labels:
+      service: infrastructure_redis_cluster_healthcheck
+    annotations:
+      summary: "redis is not working as expected..."
+      description: "redis is not working as expected..."
+

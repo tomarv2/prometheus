@@ -1,0 +1,16 @@
+# Ingress
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: prometheus-monitoring
+  namespace: sharedservices
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: prometheus-monitoring.demo.com
+    http:
+      paths:
+      - backend:
+          serviceName: prometheus-monitoring
+          servicePort: 9090

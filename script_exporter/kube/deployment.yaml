@@ -1,0 +1,48 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: dataengr
+  name: prom-custom-script
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        cluster: prom-custom-script
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: prom-custom-script
+        #image: ecr.tomarv2.com/demo/devops/prometheus-custom-script:v01
+        image: python:3.6
+        imagePullPolicy: Always
+        command:
+          - "/bin/sh"
+          - "-c"
+          - >
+            apt-get install wget;
+            pip install prometheus_client;
+            wget http://demo.com/projects/DOPS/repos/nifi/raw/nifi_monitoring/test.py -O /tmp/test.py;
+            chmod +x /tmp/test.py;
+            python3 /tmp/test.py
+        securityContext:
+          privileged: true
+        ports:
+         - name: web
+           containerPort: 9172
+        volumeMounts:
+        - name: nifi-volume
+          mountPath: /mnt/nifi
+          subPath: nifi
+        - name: prom-exporter-configmap-volume
+          mountPath: /etc/script-exporter/script-exporter.yml
+          subPath: script-exporter.yml
+      volumes:
+      - name: nifi-volume
+        persistentVolumeClaim:
+          claimName: nifi-nfs-pvc
+      - name: prom-exporter-configmap-volume
+        configmap:
+          name: prom-exporter-configmap
+
+# /bin/script-exporter -config.shell="/bin/sh" -web.listen-address=":9172" -web.telemetry-path="/metrics" -config.file=/etc/script-exporter/script-exporter.yml

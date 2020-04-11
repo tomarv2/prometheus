@@ -1,0 +1,12 @@
+groups:
+- name: InfrastructureMonitoringFailure.blackbox.rules
+  rules:
+  - alert: InfrastructureMonitoringFailure
+    expr: probe_http_status_code{job="infrastructure-monitoring-blackbox"} != 200
+    for: 5m
+    labels:
+      service: infrastructure-monitoring-blackbox
+    annotations:
+      summary: "Instance {{ $labels.instance }} down"
+      description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
+

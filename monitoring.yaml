@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: sharedservices
+  name: prometheus-update-lma
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        cluster: prometheus-update-lma
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: prometheus-update-lma
+        image: ecr.tomarv2.com/demo/devops/monitoring-base:latest
+        command:
+          - "/bin/sh"
+          - "-c"
+          - >
+            set -x;
+            chmod 400 /tmp/secret/id_rsa.demo;
+            python /automation/change_on_prometheus_repo/source/main_prometheus_change.py;
+            sleep 60;
+            curl -XPOST http://prometheus-monitoring.sharedservices:9090/-/reload;
+            curl -XPOST http://prometheus-am.sharedservices:9093/-/reload;
+            sleep infinity
+        volumeMounts:
+        - name: monitoring-volume
+          mountPath: /mnt
+        - name: demo-ssh-config-volume
+          mountPath: "/tmp/secret"
+      volumes:
+      - name: monitoring-volume
+        persistentVolumeClaim:
+          claimName: monitoring-nfs-pvc  # update claim to standard name
+      - name: demo-ssh-config-volume
+        secret:
+          secretName: demo-ssh-config

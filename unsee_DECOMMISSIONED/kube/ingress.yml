@@ -1,0 +1,16 @@
+# Ingress
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: unsee_DECOMMISSIONED
+  namespace: sharedservices
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: devops-alerts.demo.com
+    http:
+      paths:
+      - backend:
+          serviceName: unsee_DECOMMISSIONED
+          servicePort: 8080

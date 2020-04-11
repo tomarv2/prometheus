@@ -1,0 +1,17 @@
+# Ingress
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: prom-custom-script
+  namespace: dataengr
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+  - host: prom-custom-script.services.demo.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: prom-custom-script-nodeport
+          servicePort: 9152

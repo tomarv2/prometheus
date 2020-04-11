@@ -1,0 +1,6 @@
+- labels:
+    job: spark-blackbox
+  targets:
+  - http://spark.demo.com
+
+

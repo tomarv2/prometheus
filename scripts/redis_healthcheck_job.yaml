@@ -1,0 +1,24 @@
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: redis-healthcheck
+  namespace: sharedservices
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: redis-healthcheck
+            image: python:3.6
+            command:
+              - "/bin/sh"
+              - "-c"
+              - >
+                pip install requests;
+                pip install prometheus_client;
+                wget http://demo.com/projects/DOPS/repos/prometheus/raw/scripts/redis_healthcheck.py -O /tmp/redis_healthcheck.py;
+                python3 /tmp/redis_healthcheck.py redis-ha.services.demo.com 31630 http://prometheus-pushgateway.services.demo.com redis-healthcheck;
+          restartPolicy: OnFailure
+

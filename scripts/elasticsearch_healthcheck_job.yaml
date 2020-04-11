@@ -1,0 +1,23 @@
+apiVersion: batch/v2alpha1
+kind: CronJob
+metadata:
+  name: elasticsearch-healthcheck
+  namespace: sharedservices
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: elasticsearch-healthcheck
+            image: python:3.6
+            command:
+              - "/bin/sh"
+              - "-c"
+              - >
+                pip install requests;
+                pip install prometheus_client;
+                wget http://demo.com/projects/DOPS/repos/prometheus/raw/scripts/elasticsearch_healthcheck.py -O /tmp/elasticsearch_healthcheck.py;
+                python3 /tmp/elasticsearch_healthcheck.py http://es.demo.com http://prometheus-pushgateway.demo.com infrastructure-aws-elastic-healthcheck
+          restartPolicy: OnFailure

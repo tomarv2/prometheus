@@ -1,0 +1,11 @@
+groups:
+- name: AWSElasticHealthCheck.rules
+  rules:
+  - alert: AWSElasticHealthCheck
+    expr: AWSElasticHealthCheck{job="AWSElasticHealthCheck"} == 99999
+    for: 5m
+    labels:
+      service: AWSElasticHealthCheck
+    annotations:
+      summary: "Cluster is red"
+      description: "Cluster is red"

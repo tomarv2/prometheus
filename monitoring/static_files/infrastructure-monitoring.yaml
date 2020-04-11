@@ -1,0 +1,9 @@
+- labels:
+    job: infrastructure-monitoring-blackbox
+  targets:
+   - http://grafana.services.demo.com
+   - http://dynamic-jenkins.services.demo.com
+   - http://spinnaker.services.demo.com
+   - http://prometheus-monitoring.demo.com
+   - http://prometheus-blackbox.demo.com
+   - http://prometheus-am.demo.com

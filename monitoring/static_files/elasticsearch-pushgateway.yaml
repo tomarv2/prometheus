@@ -1,0 +1,13 @@
+- labels:
+    job: AWSElasticHealthCheck
+  targets:
+  - http://prometheus-pushgateway:9091
+# - labels:
+#     job: ProdElasticHealthCheck
+#   targets:
+#   - http://prometheus-pushgateway:9091
+# - labels:
+#     job: QAElasticHealthCheck
+#   targets:
+#   - http://prometheus-pushgateway:9091
+

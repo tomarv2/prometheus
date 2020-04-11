@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: sharedservices
+  name: prometheus-pushgateway
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: prometheus-pushgateway
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: prometheus-pushgateway
+        #image: ecr.tomarv2.com/demo/devops/prometheus-custom-script:v01
+        image: prom/pushgateway
+        imagePullPolicy: Always
+#        command:
+#          - "/bin/sh"
+#          - "-c"
+#          - >
+#            while true; do echo "demo `if [ -f /mnt/nifi/demo/test_nifi_template_status.txt ]; then echo 0; else echo 1; fi `"| curl --data-binary @- http://prom-pushgateway:9091/metrics/job/demo; sleep 60; done
+        securityContext:
+          privileged: true
+        ports:
+         - name: web
+           containerPort: 9091
+        resources:
+          requests:
+            cpu: 500m
+            memory: 2Gi
+          limits:
+            cpu: 1000m
+            memory: 2Gi
+#        volumeMounts:
+#        - name: nifi-volume
+#          mountPath: /mnt/nifi
+#          subPath: nifi
+#        - name: prom-exporter-configmap-volume
+#          mountPath: /etc/script-exporter/script-exporter.yml
+#          subPath: script-exporter.yml
+#      volumes:
+#      - name: nifi-volume
+#        persistentVolumeClaim:
+#          claimName: nifi-nfs-pvc
+#      - name: prom-exporter-configmap-volume
+#        configmap:
+#          name: prom-exporter-configmap
