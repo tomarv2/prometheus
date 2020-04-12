@@ -141,7 +141,7 @@ scrape_configs:
       action: replace
       target_label: kubernetes_name
 #################################################################
-  - job_name: 'elasticsearch-pushgateway'
+  - job_name: 'es-pushgateway'
     honor_labels: true
     scrape_interval: 60s
     scrape_timeout: 10s
@@ -150,7 +150,7 @@ scrape_configs:
       module: [http_check]
     file_sd_configs:
       - files:
-        - /mnt/monitoring/prometheus/monitoring/static_files/aws/elasticsearch-pushgateway.yaml
+        - /mnt/monitoring/prometheus/monitoring/static_files/aws/es-pushgateway.yaml
     relabel_configs:
       - source_labels: [__address__]
         regex: (.*)(:80)?

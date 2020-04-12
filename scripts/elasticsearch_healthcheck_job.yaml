@@ -1,7 +1,7 @@
 apiVersion: batch/v2alpha1
 kind: CronJob
 metadata:
-  name: elasticsearch-healthcheck
+  name: es-healthcheck
   namespace: sharedservices
 spec:
   schedule: "*/5 * * * *"
@@ -10,7 +10,7 @@ spec:
       template:
         spec:
           containers:
-          - name: elasticsearch-healthcheck
+          - name: es-healthcheck
             image: python:3.6
             command:
               - "/bin/sh"
