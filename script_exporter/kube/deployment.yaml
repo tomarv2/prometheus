@@ -13,7 +13,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: prom-custom-script
-        #image: ecr.tomarv2.com/demo/devops/prometheus-custom-script:v01
+        #image: ecr.demo.com/demo/devops/prometheus-custom-script:v01
         image: python:3.6
         imagePullPolicy: Always
         command:

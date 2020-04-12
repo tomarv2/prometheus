@@ -46,13 +46,13 @@ receivers:
 - name: 'default-email'
   email_configs:
   - send_resolved: true
-    to: demo@tomarv2.com
+    to: demo@demo.com
     from: prometheus@demo.com
     smarthost: demo.com:25
     headers:
       From: prometheus@demo.com
       Subject: '{{ template "email.default.subject" . }}'
-      To: demo@tomarv2.com
+      To: demo@demo.com
     html: '{{ template "email.default.html" . }}'
     require_tls: false
 #  slack_configs:
@@ -65,13 +65,13 @@ receivers:
 - name: 'demo-team'
   email_configs:
   - send_resolved: true
-    to: 'demo@tomarv2.com' # DO NOT REMOVE TAG: demo-team
+    to: 'demo@demo.com' # DO NOT REMOVE TAG: demo-team
     from: prometheus@demo.com
     smarthost: demo.com:25
     headers:
       From: prometheus@demo.com
       Subject: '{{ template "email.default.subject" . }}'
-      To: 'demo@tomarv2.com' # DO NOT REMOVE TAG: demo-team
+      To: 'demo@demo.com' # DO NOT REMOVE TAG: demo-team
     html: '{{ template "email.default.html" . }}'
     require_tls: false
   pagerduty_configs:
@@ -90,13 +90,13 @@ receivers:
 - name: 'kubernetes-monitoring-email'
   email_configs:
   - send_resolved: true
-    to: 'demo@tomarv2.com,demo1@demo.com' ## TO CHANGE!!!
+    to: 'demo@demo.com,demo1@demo.com' ## TO CHANGE!!!
     from: prometheus@demo.com
     smarthost: demo.com:25
     headers:
       From: prometheus@demo.com
       Subject: '{{ template "email.default.subject" . }}'
-      To: 'demo@tomarv2.com,demo1@demo.com' ## TO CHANGE!!!
+      To: 'demo@demo.com,demo1@demo.com' ## TO CHANGE!!!
     html: '{{ template "email.default.html" . }}'
     require_tls: false
   slack_configs:
@@ -109,13 +109,13 @@ receivers:
 - name: 'test-service-team'
   email_configs:
   - send_resolved: true
-    to: 'demo@tomarv2.com' # DO NOT REMOVE TAG: test-service-team
+    to: 'demo@demo.com' # DO NOT REMOVE TAG: test-service-team
     from: prometheus@demo.com
     smarthost: demo.com:25
     headers:
       From: prometheus@demo.com
       Subject: '{{ template "email.default.subject" . }}'
-      To: 'demo@tomarv2.com' # DO NOT REMOVE TAG: test-service-team
+      To: 'demo@demo.com' # DO NOT REMOVE TAG: test-service-team
     html: '{{ template "email.default.html" . }}'
     require_tls: false
   pagerduty_configs:

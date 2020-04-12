@@ -13,7 +13,7 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: prometheus-update-lma
-        image: ecr.tomarv2.com/demo/devops/monitoring-base:latest
+        image: ecr.demo.com/demo/devops/monitoring-base:latest
         command:
           - "/bin/sh"
           - "-c"
