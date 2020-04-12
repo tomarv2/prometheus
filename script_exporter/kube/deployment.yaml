@@ -22,7 +22,7 @@ spec:
           - >
             apt-get install wget;
             pip install prometheus_client;
-            wget http://demo.com/projects/DOPS/repos/nifi/raw/nifi_monitoring/test.py -O /tmp/test.py;
+            wget http://demo.com/projects/DP/repos/nifi/raw/nifi_monitoring/test.py -O /tmp/test.py;
             chmod +x /tmp/test.py;
             python3 /tmp/test.py
         securityContext:

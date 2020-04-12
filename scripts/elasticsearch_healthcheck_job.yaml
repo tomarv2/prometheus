@@ -18,6 +18,6 @@ spec:
               - >
                 pip install requests;
                 pip install prometheus_client;
-                wget http://demo.com/projects/DOPS/repos/prometheus/raw/scripts/elasticsearch_healthcheck.py -O /tmp/elasticsearch_healthcheck.py;
+                wget http://demo.com/projects/DP/repos/prometheus/raw/scripts/elasticsearch_healthcheck.py -O /tmp/elasticsearch_healthcheck.py;
                 python3 /tmp/elasticsearch_healthcheck.py http://es.demo.com http://prometheus-pushgateway.demo.com infrastructure-aws-elastic-healthcheck
           restartPolicy: OnFailure
