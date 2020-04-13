@@ -4,8 +4,6 @@ There are two options that we provide to our developers on how to configure thei
 
 ![Image description](https://files.gitter.im/tomarv2/7m11/Screen-Shot-2020-04-11-at-10.04.06-AM.png)
 
-![Image description](https://files.gitter.im/tomarv2/J3HU/Screen-Shot-2020-04-12-at-6.59.21-PM.png)
-
 <p align="center">
   <img src="https://files.gitter.im/tomarv2/J3HU/Screen-Shot-2020-04-12-at-6.59.21-PM.png">
 </p>
