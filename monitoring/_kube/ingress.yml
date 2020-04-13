@@ -1,9 +1,8 @@
-# Ingress
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: prometheus-monitoring
-  namespace: sharedservices
+  namespace: devops
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:

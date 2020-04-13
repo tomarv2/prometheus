@@ -2,13 +2,14 @@ apiVersion: v1
 kind: Service
 metadata:
   name: prometheus-monitoring
-  namespace: sharedservices
+  namespace: devops
   labels:
-    name: prometheus-monitoring
+    app: prometheus-monitoring
 spec:
   ports:
   - name: prometheus-monitoring-port
     port: 9090
     protocol: TCP
+  type: NodePort
   selector:
-    component: prometheus-monitoring
+    app: prometheus-monitoring
