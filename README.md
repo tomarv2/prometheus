@@ -18,4 +18,4 @@ This repo contains 6 components that we use in our environment to monitor our k8
 - Unsee - Decommissioned (https://github.com/cloudflare/unsee) - There has been no commit to this project for a long time
 - Elastalert (There is not covered in this repo: https://github.com/Yelp/elastalert)
 
-**Note:** This is part of a automation project that I plan to make public as soon as I clean and test it.
+**Note:** This is part of a automation project that will become public one day.

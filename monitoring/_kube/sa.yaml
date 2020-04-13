@@ -4,7 +4,6 @@ metadata:
   name: prometheus
 
 ---
-
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -23,29 +22,24 @@ rules:
   verbs: ["get"]
 - nonResourceURLs: ["/metrics"]
   verbs: ["get"]
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: ClusterRole
-metadata:
-  name: system:persistent-volume-provisioner-supl
-rules:
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs:
-  - list
----
 
-apiVersion: rbac.authorization.k8s.io/v1beta1
+---
+# NOTE: I gave prometheus cluster-admin permission
+#
+apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
   name: prometheus
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: admin
+  name: cluster-admin # Update it to the right role
 subjects:
 - kind: ServiceAccount
   name: prometheus
   namespace: devops
+
+---
+# cli command to create clusterrolebinding
+#
+# kubectl create clusterrolebinding prometheuscrb --clusterrole=cluster-admin --serviceaccount=devops:prometheus

@@ -15,6 +15,7 @@ spec:
       labels:
         app: prometheus-monitoring
     spec:
+      serviceAccountName: prometheus
       securityContext:
         fsGroup: 1000
       containers:
@@ -43,6 +44,9 @@ spec:
         - name: prometheus-config-volume
           configMap:
             name: prometheus-config
+         #
+         # NOTE: update the right PV and PVC information
+         #
 #        volumeMounts:
 #        - name: monitoring-efs-volume
 #          mountPath: /mnt
