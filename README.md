@@ -6,6 +6,10 @@ There are two options that we provide to our developers on how to configure thei
 
 ![Image description](https://files.gitter.im/tomarv2/J3HU/Screen-Shot-2020-04-12-at-6.59.21-PM.png)
 
+<p align="center">
+  <img src="https://files.gitter.im/tomarv2/J3HU/Screen-Shot-2020-04-12-at-6.59.21-PM.png">
+</p>
+
 ***
 This repo contains 6 components that we use in our environment to monitor our k8s infrastructure:
 
