@@ -29,17 +29,17 @@ route:
   group_interval: 5m
   repeat_interval: 4h
   routes:
-  - receiver: 'infrastructure-monitoring-email'
-    match_re:
-      service: ^(infrastructure*)$
+#  - receiver: 'infrastructure-monitoring-email'
+#    match_re:
+#      service: ^(infrastructure*)$
 
   - receiver: 'kubernetes-monitoring-email'
     match_re:
       service: kubernetes-monitoring-blackbox
 
-  - receiver: 'test-service-team'
+  - receiver: 'demo-service-team'
     match:
-      service: test-service-blackbox
+      service: demo-service-blackbox
 ################ ALERT_ROUTES ABOVE #################
 #####################################################
 receivers:
@@ -60,33 +60,7 @@ receivers:
 #    api_url: https://hooks.slack.com/services/T12345/T12345/T12345
 #    channel: devops-alerts
 ################### END JOB #########################
-
 ################# START JOB #########################
-- name: 'demo-team'
-  email_configs:
-  - send_resolved: true
-    to: 'demo@demo.com' # DO NOT REMOVE TAG: demo-team
-    from: prometheus@demo.com
-    smarthost: demo.com:25
-    headers:
-      From: prometheus@demo.com
-      Subject: '{{ template "email.default.subject" . }}'
-      To: 'demo@demo.com' # DO NOT REMOVE TAG: demo-team
-    html: '{{ template "email.default.html" . }}'
-    require_tls: false
-  pagerduty_configs:
-  - send_resolved: true
-    service_key: 123456789 # DO NOT REMOVE TAG: demo-team
-    url: https://events.pagerduty.com/v2/enqueue
-    client: '{{ template "pagerduty.default.client" . }}'
-    client_url: '{{ template "pagerduty.default.clientURL" . }}'
-    description: '{{template "pagerduty.default.description" .}}'
-  slack_configs:
-  - send_resolved: true 
-    api_url: https://hooks.slack.com/services/T12345/T12345/T12345
-    channel:  "devops-alerts" # DO NOT REMOVE TAG: demo-team
-################### END JOB #########################
-################# START JOB #########################                                                        
 - name: 'kubernetes-monitoring-email'
   email_configs:
   - send_resolved: true
@@ -106,21 +80,21 @@ receivers:
     text: '{{ .GroupLabels.alertname }}: {{ .Annotations.summary }} {{ end }}'
 ################### END JOB #########################
 ################# START JOB #########################
-- name: 'test-service-team'
+- name: 'demo-service-team'
   email_configs:
   - send_resolved: true
-    to: 'demo@demo.com' # DO NOT REMOVE TAG: test-service-team
+    to: 'demo@demo.com' # DO NOT REMOVE TAG: demo-service-team
     from: prometheus@demo.com
     smarthost: demo.com:25
     headers:
       From: prometheus@demo.com
       Subject: '{{ template "email.default.subject" . }}'
-      To: 'demo@demo.com' # DO NOT REMOVE TAG: test-service-team
+      To: 'demo@demo.com' # DO NOT REMOVE TAG: demo-service-team
     html: '{{ template "email.default.html" . }}'
     require_tls: false
   pagerduty_configs:
   - send_resolved: true
-    service_key: 123456789 # DO NOT REMOVE TAG: test-service-team
+    service_key: 123456789 # DO NOT REMOVE TAG: demo-service-team
     url: https://events.pagerduty.com/v2/enqueue
     client: '{{ template "pagerduty.default.client" . }}'
     client_url: '{{ template "pagerduty.default.clientURL" . }}'
@@ -129,9 +103,9 @@ receivers:
   - send_resolved: true
     api_url: https://hooks.slack.com/services/T12345/T12345/T12345
     channel: "devops-alerts"
-  - send_resolved: true 
+  - send_resolved: true
     api_url: https://hooks.slack.com/services/T12345/T12345/T12345
-    channel:  "devops-alerts" # DO NOT REMOVE TAG: test-service-team
+    channel:  "devops-alerts" # DO NOT REMOVE TAG: demo-service-team
 ################### END JOB #########################
 ############## ALERT_RECEIVERS ABOVE ################
 #####################################################

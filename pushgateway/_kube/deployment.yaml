@@ -1,10 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: sharedservices
+  namespace: devops
   name: prometheus-pushgateway
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-pushgateway
   template:
     metadata:
       labels:
@@ -26,13 +29,13 @@ spec:
         ports:
          - name: web
            containerPort: 9091
-        resources:
-          requests:
-            cpu: 500m
-            memory: 2Gi
-          limits:
-            cpu: 1000m
-            memory: 2Gi
+#        resources:
+#          requests:
+#            cpu: 500m
+#            memory: 2Gi
+#          limits:
+#            cpu: 1000m
+#            memory: 2Gi
 #        volumeMounts:
 #        - name: nifi-volume
 #          mountPath: /mnt/nifi

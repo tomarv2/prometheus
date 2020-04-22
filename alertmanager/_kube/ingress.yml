@@ -1,18 +1,16 @@
-
-
 # Ingress
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: prometheus-blackbox
-  namespace: sharedservices
+  name: prometheus-alertmanager
+  namespace: devops
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: prometheus-blackbox.demo.com
+  - host: prometheus-alertmanager.demo.com
     http:
       paths:
       - backend:
-          serviceName: prometheus-blackbox
-          servicePort: 9115
+          serviceName: prometheus-alertmanager
+          servicePort: 9093

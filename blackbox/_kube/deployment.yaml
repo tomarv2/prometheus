@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-blackbox
+  namespace: devops
+  labels:
+    app: prometheus-blackbox
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prometheus-blackbox
+  template:
+    metadata:
+      labels:
+        app: prometheus-blackbox
+    spec:
+      securityContext:
+        fsGroup: 1000
+      containers:
+      - name: prometheus-blackbox
+        securityContext:
+          privileged: true
+        image: prom/blackbox-exporter
+#        imagePullPolicy: Always
+        command:
+          - "/bin/sh"
+          - "-c"
+          - >
+            /bin/blackbox_exporter --config.file="/etc/blackbox/config.yaml"
+        volumeMounts:
+        - name: blackbox-config-volume
+          mountPath: /etc/blackbox
+#        - name: monitoring-efs-volume
+#          mountPath: /mnt
+        ports:
+        - containerPort: 9115
+          name: blackbox
+#        resources:
+#          requests:
+#            cpu: 500m
+#            memory: 2Gi
+#          limits:
+#            cpu: 1000m
+#            memory: 2Gi
+      volumes:
+      - name: blackbox-config-volume
+        configMap:
+          name: blackbox-config
+#      - name: monitoring-efs-volume
+#        persistentVolumeClaim:
+#          claimName: monitoring-efs-pvc

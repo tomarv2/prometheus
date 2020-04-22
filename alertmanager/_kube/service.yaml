@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: prometheus-monitoring
+  name: prometheus-alertmanager
   namespace: devops
   labels:
-    app: prometheus-monitoring
+    app: prometheus-alertmanager
 spec:
   ports:
-  - name: prometheus-monitoring-port
-    port: 9090
+  - name: prometheus-alertmanager-port
+    port: 9093
     protocol: TCP
   type: NodePort # only use this to by-pass ingress
   selector:
-    app: prometheus-monitoring
+    app: prometheus-alertmanager

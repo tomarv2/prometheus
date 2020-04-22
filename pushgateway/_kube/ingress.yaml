@@ -3,7 +3,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: prometheus-pushgateway
-  namespace: sharedservices
+  namespace: devops
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
@@ -15,7 +15,3 @@ spec:
         backend:
           serviceName: prometheus-pushgateway
           servicePort: 9091
-
-#kubectl describe svc nonprod-nifi-datamastering-nodeport -n datamastering|grep Endpoints |grep 8080|awk -F ' ' '{print $2}'
-#kubectl create configmap nifi-zk-config --from-literal=zk-server=devzk.demo.com:2181 -n data-engr
-#http://prom-pushgateway-nodeport.data-engr:8080

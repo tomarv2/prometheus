@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: prometheus-blackbox
-  namespace: sharedservices
+  namespace: devops
   labels:
     name: prometheus-blackbox
 spec:
@@ -11,5 +11,6 @@ spec:
   - name: prometheus-blackbox-port
     port: 9115
     protocol: TCP
+  type: NodePort # only use this to by-pass ingress
   selector:
-    component: prometheus-blackbox
+    app: prometheus-blackbox

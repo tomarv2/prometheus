@@ -3,12 +3,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: prometheus-pushgateway
-  namespace: sharedservices
+  namespace: devops
   labels:
-    cluster: prometheus-pushgateway
+    app: prometheus-pushgateway
 spec:
   ports:
     - name: web
       port: 9091
   selector:
-    cluster: prometheus-pushgateway
+    app: prometheus-pushgateway
