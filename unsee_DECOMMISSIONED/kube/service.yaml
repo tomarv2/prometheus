@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: unsee_DECOMMISSIONED
-  namespace: sharedservices
+  namespace: devops
   labels:
     name: unsee_DECOMMISSIONED
 spec:

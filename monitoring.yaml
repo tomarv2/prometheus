@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  namespace: sharedservices
+  namespace: devops
   name: prometheus-update-lma
 spec:
   replicas: 1
@@ -22,8 +22,8 @@ spec:
             chmod 400 /tmp/secret/id_rsa.demo;
             python /automation/change_on_prometheus_repo/source/main_prometheus_change.py;
             sleep 60;
-            curl -XPOST http://prometheus-monitoring.sharedservices:9090/-/reload;
-            curl -XPOST http://prometheus-am.sharedservices:9093/-/reload;
+            curl -XPOST http://prometheus-monitoring:9090/-/reload;
+            curl -XPOST http://prometheus-alertmanager:9093/-/reload;
             sleep infinity
         volumeMounts:
         - name: monitoring-volume

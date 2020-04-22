@@ -15,7 +15,7 @@ pipeline {
             }
             steps {
                 script {
-                    env.nameSpace = "sharedservices"
+                    env.nameSpace = "devops"
                 }
                 checkout scm
                 sh "git rev-parse --short HEAD > .git/commit-id"
@@ -47,9 +47,9 @@ pipeline {
                     env.commit_id = readFile('.git/commit-id')
                 }
                 withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_qa', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
-                    sh "kubectl create -f monitoring.yaml --namespace=sharedservices --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true"
+                    sh "kubectl create -f monitoring.yaml --namespace=devops --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true"
                     sh "sleep 30"
-                    sh "kubectl delete -f monitoring.yaml --namespace=sharedservices --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true"
+                    sh "kubectl delete -f monitoring.yaml --namespace=devops --server='https://k8s-master.demo.com' --username=${k8s_user} --password=${k8s_pwd} --insecure-skip-tls-verify=true"
                 }
             }
         }

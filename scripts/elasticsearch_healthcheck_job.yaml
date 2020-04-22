@@ -2,7 +2,7 @@ apiVersion: batch/v2alpha1
 kind: CronJob
 metadata:
   name: es-healthcheck
-  namespace: sharedservices
+  namespace: devops
 spec:
   schedule: "*/5 * * * *"
   jobTemplate:
