@@ -4,7 +4,17 @@ This repo is used to deploy monitoring for a k8s cluster. There are two parts to
 - Monitoring the cluster itself
 - Monitoring the application(s) deployed on the cluster
 
-**Note:**
+I am using 6 components to monitor the k8s infrastructure:
+
+- **Prometheus** - https://github.com/prometheus/prometheus
+- **Alertmanager** - https://prometheus.io/docs/alerting/alertmanager/
+- **Blackbox** - https://github.com/prometheus/blackbox_exporter
+- **Pushgateway** - https://github.com/prometheus/pushgateway
+- **Grafana** - https://grafana.com/
+- **Unsee(Decommissioned)** - There has been no commit to this project for a long time (https://github.com/cloudflare/unsee).
+- **Elastalert** - This is not covered in this repo (https://github.com/Yelp/elastalert), working on it.
+
+## Note:
 - I am using EFS to store all the deployment related files. For example all files for prometheus, blackbox, etc
 are stored in EFS and shared by all the k8s clusters.
 
@@ -29,15 +39,6 @@ There are two options that I use to trigger prometheus repo as part of the CICD 
 </p>
 
 ***
-This repo contains 6 components that we use in our environment to monitor our k8s infrastructure:
-
-- **Prometheus** - https://github.com/prometheus/prometheus
-- **Alertmanager** - https://prometheus.io/docs/alerting/alertmanager/
-- **Blackbox** - https://github.com/prometheus/blackbox_exporter
-- **Pushgateway** - https://github.com/prometheus/pushgateway
-- **Grafana** - https://grafana.com/
-- **Unsee(Decommissioned)** - There has been no commit to this project for a long time (https://github.com/cloudflare/unsee).
-- **Elastalert** - This is not covered in this repo (https://github.com/Yelp/elastalert), working on it.
 
 
 
