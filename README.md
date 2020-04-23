@@ -1,5 +1,4 @@
 # k8s: configuring monitoring
-***
 
 This repo is used to deploy monitoring for a k8s cluster. There are two parts to monitoring a k8s cluster:
 - Monitoring the cluster itself

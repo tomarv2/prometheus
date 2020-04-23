@@ -1,6 +1,5 @@
-**AlertManager**
+# AlertManager
 
-***
 Sample email from AlertManager (using default template):
 ***
 
