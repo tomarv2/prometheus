@@ -1,7 +1,7 @@
 **AlertManager**
 
 <p align="center">
-  <img width="700" height="600" src="https://files.gitter.im/tomarv2/nIbh/Screen-Shot-2020-04-23-at-12.13.07-AM.png">
+  <img width="600" height="600" src="https://files.gitter.im/tomarv2/nIbh/Screen-Shot-2020-04-23-at-12.13.07-AM.png">
 </p>
 
 ***
