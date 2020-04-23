@@ -1,4 +1,4 @@
-**Prometheus**
+#Prometheus
 
 There are two options that we provide to our developers on how to configure their project. We trigger prometheus repo as part of the CICD process. Whenever a user triggers the project, at the end we have a stage which triggers `configuring monitoring` which takes care of configuring monitoring for the project.
 
@@ -18,11 +18,6 @@ This repo contains 6 components that we use in our environment to monitor our k8
 - Unsee - Decommissioned (https://github.com/cloudflare/unsee) - There has been no commit to this project for a long time
 - Elastalert (There is not covered in this repo: https://github.com/Yelp/elastalert)
 
-**Note:** 
-
-Requirements:
-- Linux: root user or CAP_NET_RAW capability is required.
-- Can be set by executing setcap cap_net_raw+ep blackbox_exporter
 
 
 

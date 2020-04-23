@@ -1,8 +1,10 @@
 global:
   resolve_timeout: 1h
-  smtp_from: prometheus@demo.com
-  smtp_smarthost: demo.com:25
-  smtp_require_tls: false
+  smtp_from: demo@demo.com
+  smtp_smarthost: smtp.gmail.com:587 #465(SSL) or 465(TLS) based on requirement
+  #smtp_require_tls: false
+  smtp_auth_username: demo@demo.com
+  smtp_auth_password: password
   pagerduty_url: https://events.pagerduty.com/v2/enqueue
   slack_api_url: https://hooks.slack.com/services/T12345/T12345/12345
 
@@ -11,15 +13,15 @@ templates:
 - /etc/alertmanager/template/*.tmpl
 
 #####################################################
-#inhibit_rules:
-#- source_match:
-#    severity: critical
-#  target_match:
-#    severity: warning
-#  equal:
-#  - alertname
-#  - cluster
-#  - service
+inhibit_rules:
+- source_match:
+    severity: critical
+  target_match:
+    severity: warning
+  equal:
+  - alertname
+  - cluster
+  - service
 
 #####################################################
 route:
@@ -39,61 +41,63 @@ route:
 
   - receiver: 'demo-service-team'
     match_re:
-      service: ^(prom*)$
+      service: ^(demo*)$ # NOTE: service = job_name(from: prometheus(config.yaml))
 #    match:
 #      service: demo-service-blackbox
 ################ ALERT_ROUTES ABOVE #################
 #####################################################
+
 receivers:
+################# START JOB #########################
 - name: 'default-email'
   email_configs:
   - send_resolved: true
     to: demo@demo.com
-    from: prometheus@demo.com
-    smarthost: demo.com:25
+    from: demo@demo.com
+    smarthost: smtp.gmail.com:587
     headers:
-      From: prometheus@demo.com
+      From: demo@demo.com
       Subject: '{{ template "email.default.subject" . }}'
       To: demo@demo.com
     html: '{{ template "email.default.html" . }}'
-    require_tls: false
+    #require_tls: false
 #  slack_configs:
 #  - send_resolved: true
 #    api_url: https://hooks.slack.com/services/T12345/T12345/T12345
-#    channel: devops-alerts
+#    channel: demo-alerts
 ################### END JOB #########################
 ################# START JOB #########################
 - name: 'kubernetes-monitoring-email'
   email_configs:
   - send_resolved: true
     to: 'demo@demo.com,demo1@demo.com' ## TO CHANGE!!!
-    from: prometheus@demo.com
-    smarthost: demo.com:25
+    from: demo@demo.com
+    smarthost: smtp.gmail.com:587
     headers:
-      From: prometheus@demo.com
+      From: demo@demo.com
       Subject: '{{ template "email.default.subject" . }}'
       To: 'demo@demo.com,demo1@demo.com' ## TO CHANGE!!!
     html: '{{ template "email.default.html" . }}'
-    require_tls: false
+    #require_tls: false
   slack_configs:
   - send_resolved: true
     api_url: https://hooks.slack.com/services/T12345/T12345/T12345
-    channel: devops-alerts
-    text: '{{ .GroupLabels.alertname }}: {{ .Annotations.summary }} {{ end }}'
+    channel: demo-alerts
+    #text: '{{ .GroupLabels.alertname }}: {{ .Annotations.summary }} {{ end }}'
 ################### END JOB #########################
 ################# START JOB #########################
 - name: 'demo-service-team'
   email_configs:
   - send_resolved: true
     to: 'demo@demo.com' # DO NOT REMOVE TAG: demo-service-team
-    from: prometheus@demo.com
-    smarthost: demo.com:25
+    from: demo@demo.com
+    smarthost: smtp.gmail.com:587
     headers:
-      From: prometheus@demo.com
+      From: demo@demo.com
       Subject: '{{ template "email.default.subject" . }}'
       To: 'demo@demo.com' # DO NOT REMOVE TAG: demo-service-team
     html: '{{ template "email.default.html" . }}'
-    require_tls: false
+    #require_tls: false
   pagerduty_configs:
   - send_resolved: true
     service_key: 123456789 # DO NOT REMOVE TAG: demo-service-team
@@ -104,10 +108,9 @@ receivers:
   slack_configs:
   - send_resolved: true
     api_url: https://hooks.slack.com/services/T12345/T12345/T12345
-    channel: "devops-alerts"
+    channel: "demo-alerts"
   - send_resolved: true
     api_url: https://hooks.slack.com/services/T12345/T12345/T12345
-    channel:  "devops-alerts" # DO NOT REMOVE TAG: demo-service-team
+    channel: "demo-alerts" # DO NOT REMOVE TAG: demo-service-team
 ################### END JOB #########################
 ############## ALERT_RECEIVERS ABOVE ################
-#####################################################
