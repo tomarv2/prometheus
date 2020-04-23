@@ -19,12 +19,12 @@ There are two options on how to configure project. We trigger prometheus repo as
 ***
 This repo contains 6 components that we use in our environment to monitor our k8s infrastructure:
 
-- Prometheus (https://github.com/prometheus/prometheus)
-- Alertmanager (https://prometheus.io/docs/alerting/alertmanager/)
-- Blackbox (https://github.com/prometheus/blackbox_exporter)
-- Pushgateway (https://github.com/prometheus/pushgateway)
-- Unsee - Decommissioned (https://github.com/cloudflare/unsee) - There has been no commit to this project for a long time
-- Elastalert (There is not covered in this repo: https://github.com/Yelp/elastalert)
+- **Prometheus** (https://github.com/prometheus/prometheus)
+- **Alertmanager** (https://prometheus.io/docs/alerting/alertmanager/)
+- **Blackbox** (https://github.com/prometheus/blackbox_exporter)
+- **Pushgateway** (https://github.com/prometheus/pushgateway)
+- **Unsee** - Decommissioned (https://github.com/cloudflare/unsee) - There has been no commit to this project for a long time
+- **Elastalert** (There is not covered in this repo: https://github.com/Yelp/elastalert)
 
 
 
