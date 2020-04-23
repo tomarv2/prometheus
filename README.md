@@ -1,4 +1,4 @@
-**k8s configuring monitoring (prometheus, alertmanager, blackbox, grafana) **
+**k8s configuring monitoring (prometheus, alertmanager, blackbox, grafana)**
 
 <p align="center">
   <img width="700" height="370" src="https://files.gitter.im/tomarv2/W5zT/Screen-Shot-2020-04-22-at-11.43.39-PM.png">
