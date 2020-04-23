@@ -20,7 +20,9 @@ This repo contains 6 components that we use in our environment to monitor our k8
 
 **Note:** 
 
-- This is part of a automation project that will become public one day.
+Requirements:
 - Linux: root user or CAP_NET_RAW capability is required.
 - Can be set by executing setcap cap_net_raw+ep blackbox_exporter
+
+
 
