@@ -61,7 +61,7 @@ modules:
     prober: dns
     timeout: 5s
     dns:
-      query_name: databricks.com
+      query_name: google.com
       preferred_ip_protocol: ip4
       ip_protocol_fallback: false
       validate_answer_rrs:
