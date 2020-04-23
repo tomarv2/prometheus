@@ -1,7 +1,7 @@
 #Prometheus
 
 <p align="center">
-  <img width="900" height="500"  src="https://files.gitter.im/tomarv2/W5zT/Screen-Shot-2020-04-22-at-11.43.39-PM.png">
+  <img width="700" height="450" src="https://files.gitter.im/tomarv2/W5zT/Screen-Shot-2020-04-22-at-11.43.39-PM.png">
 </p>
 
 There are two options that we provide to our developers on how to configure their project. We trigger prometheus repo as part of the CICD process. Whenever a user triggers the project, at the end we have a stage which triggers `configuring monitoring` which takes care of configuring monitoring for the project.
