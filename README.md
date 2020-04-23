@@ -1,4 +1,13 @@
-**k8s configuring monitoring (prometheus, alertmanager, blackbox, grafana)**
+**k8s: configuring monitoring (prometheus, alertmanager, blackbox, grafana)**
+***
+
+This repo is used to deploy monitoring for a k8s cluster. There are two parts to monitoring a k8s cluster:
+- Monitoring the cluster itself
+- Monitoring the application(s) deployed on the cluster
+
+**Note:**
+- I am using EFS to store all the deployment related files. For example all files for prometheus, blackbox, etc
+are stored in EFS and shared by all the k8s cluster.
 
 <p align="center">
   <img width="700" height="370" src="https://files.gitter.im/tomarv2/W5zT/Screen-Shot-2020-04-22-at-11.43.39-PM.png">
