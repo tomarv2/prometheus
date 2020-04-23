@@ -1,7 +1,7 @@
 **Prometheus**
 
 <p align="center">
-  <img width="700" height="450" src="https://files.gitter.im/tomarv2/W5zT/Screen-Shot-2020-04-22-at-11.43.39-PM.png">
+  <img width="700" height="370" src="https://files.gitter.im/tomarv2/W5zT/Screen-Shot-2020-04-22-at-11.43.39-PM.png">
 </p>
 
 There are two options on how to configure project. We trigger prometheus repo as part of the CICD process. Whenever a user triggers the project, at the end we have a stage which triggers `configuring monitoring` which takes care of configuring monitoring for the project.
@@ -9,8 +9,6 @@ There are two options on how to configure project. We trigger prometheus repo as
 <p align="center">
   <img width="700" height="300" src="https://files.gitter.im/tomarv2/7m11/Screen-Shot-2020-04-11-at-10.04.06-AM.png">
 </p>
-
-#![Image description](https://files.gitter.im/tomarv2/7m11/Screen-Shot-2020-04-11-at-10.04.06-AM.png)
 
 <p align="center">
   <img src="https://files.gitter.im/tomarv2/J3HU/Screen-Shot-2020-04-12-at-6.59.21-PM.png">
