@@ -13,7 +13,7 @@ There are two options on how to configure project. We trigger prometheus repo as
 </p>
 
 <p align="center">
-  <img width="500" height="425" src="https://files.gitter.im/tomarv2/J3HU/Screen-Shot-2020-04-12-at-6.59.21-PM.png">
+  <img width="500" height="475" src="https://files.gitter.im/tomarv2/J3HU/Screen-Shot-2020-04-12-at-6.59.21-PM.png">
 </p>
 
 ***
