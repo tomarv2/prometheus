@@ -161,18 +161,18 @@ groups:
        summary: "Pod {{ $labels.namespace }}/{{ $labels.pod_name }} restarting too much."
 
 
- # 2.7.	Deployment failed
- - name: K8S-DeploymentGenerationMismatch.blackbox.rules
-   rules:
-   - alert: K8S-DeploymentGenerationMismatch
-     expr: kube_deployment_status_observed_generation{job="kubernetes-service-endpoints"} != kube_deployment_metadata_generation{job="kubernetes-service-endpoints"}
-     for: 5m
-     labels:
-       service: kubernetes-monitoring-blackbox
-       severity: warning
-     annotations:
-       description: "Deployment of {{ $labels.namespace }}/{{ $labels. deployment }} failed - observed replicas != intended replicas."
-       summary: "Deployment of {{ $labels.namespace }}/{{ $labels. deployment }} failed"
+# # 2.7.	Deployment failed
+# - name: K8S-DeploymentGenerationMismatch.blackbox.rules
+#   rules:
+#   - alert: K8S-DeploymentGenerationMismatch
+#     expr: kube_deployment_status_observed_generation{job="kubernetes-service-endpoints"} != kube_deployment_metadata_generation{job="kubernetes-service-endpoints"}
+#     for: 5m
+#     labels:
+#       service: kubernetes-monitoring-blackbox
+#       severity: warning
+#     annotations:
+#       description: "Deployment of {{ $labels.namespace }}/{{ $labels. deployment }} failed - observed replicas != intended replicas."
+#       summary: "Deployment of {{ $labels.namespace }}/{{ $labels. deployment }} failed"
 
  # 2.8.	No available Replicaset for deployment
  - name: K8S-DeploymentReplicasUnavailable.blackbox.rules
@@ -187,27 +187,27 @@ groups:
        description: "Some replicas of deployment {{ $labels.deployment }} are unavailable "
        summary: "{{ $labels.deployment }} : replicas unavailable"
 
-- name: AWS-Pod-Failing.rules
-  rules:                                                                                                                        
-  - alert: AWS-PodFailing
-    expr: rate(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff", label_app != "job"}[1h]) != 0 or rate(kube_pod_container_status_waiting_reason{reason="ImagePullBackOff", label_app != "job"}[1h]) != 0
-    for: 20s
-    labels:
-      service: kubernetes-monitoring-blackbox
-    annotations:
-      description: Pod {{ $labels.namespace }}/{{ $labels.pod }} is failing.
-      summary: => {{ $labels.namespace }}/{{ $labels.pod }} failing.
+ - name: AWS-Pod-Failing.rules
+   rules:
+   - alert: AWS-PodFailing
+     expr: rate(kube_pod_container_status_waiting_reason{reason="CrashLoopBackOff", label_app != "job"}[1h]) != 0 or rate(kube_pod_container_status_waiting_reason{reason="ImagePullBackOff", label_app != "job"}[1h]) != 0
+     for: 20s
+     labels:
+       service: kubernetes-monitoring-blackbox
+     annotations:
+       description: Pod {{ $labels.namespace }}/{{ $labels.pod }} is failing.
+       summary: => {{ $labels.namespace }}/{{ $labels.pod }} failing.
 
-- name: AWS-PodCreationFailed.rules
-  rules:
-  - alert: AWS-PodCreationFailed
-    expr: kube_pod_container_status_waiting_reason{reason="ContainerCreating"} != 0
-    for: 30m
-    labels:
-      service: kubernetes-monitoring-blackbox
-    annotations:
-      description: Pod {{ $labels.namespace }}/{{ $labels.pod }} is failing to create for the last 30 minutes.
-      summary: => {{ $labels.namespace }}/{{ $labels.pod }} failing.
+ - name: AWS-PodCreationFailed.rules
+   rules:
+   - alert: AWS-PodCreationFailed
+     expr: kube_pod_container_status_waiting_reason{reason="ContainerCreating"} != 0
+     for: 30m
+     labels:
+       service: kubernetes-monitoring-blackbox
+     annotations:
+       description: Pod {{ $labels.namespace }}/{{ $labels.pod }} is failing to create for the last 30 minutes.
+       summary: => {{ $labels.namespace }}/{{ $labels.pod }} failing.
 
 
 

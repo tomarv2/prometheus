@@ -21,7 +21,7 @@ spec:
       - name: prometheus-blackbox
         securityContext:
           privileged: true
-        image: prom/blackbox-exporter
+        image: prom/blackbox-exporter:v0.16.0
 #        imagePullPolicy: Always
         command:
           - "/bin/sh"
@@ -30,7 +30,8 @@ spec:
             /bin/blackbox_exporter --config.file="/etc/blackbox/config.yaml"
         volumeMounts:
         - name: blackbox-config-volume
-          mountPath: /etc/blackbox
+          mountPath: /etc/blackbox/config.yaml
+          subPath: config.yaml
 #        - name: monitoring-efs-volume
 #          mountPath: /mnt
         ports:

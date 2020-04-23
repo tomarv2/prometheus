@@ -11,10 +11,16 @@ alerting:
   - static_configs:
     - targets:
         - "prometheus-alertmanager:9093"
-        - 'localhost:9090'
-        - 'es:9200'
+
+##################################################################
+#
+#
+# NOTE:
+# Using this documentation to get jobs:
+# https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml
+#
+#
 #################################################################
-# k8s scrape doc: https://github.com/prometheus/prometheus/blob/master/documentation/examples/prometheus-kubernetes.yml
 scrape_configs:
   #################################################################
   - job_name: 'kubernetes-apiservers'
@@ -129,51 +135,51 @@ scrape_configs:
       target_label: __metrics_path__
       replacement: /api/v1/nodes/${1}/proxy/metrics/cadvisor
 
-  # Example scrape config for service endpoints.
-  #
-  # The relabeling allows the actual service scrape endpoint to be configured
-  # for all or only some endpoints.
-  - job_name: 'kubernetes-service-endpoints'
-
-    kubernetes_sd_configs:
-    - role: endpoints
-
-    relabel_configs:
-    # Example relabel to scrape only endpoints that have
-    # "example.io/should_be_scraped = true" annotation.
-    #  - source_labels: [__meta_kubernetes_service_annotation_example_io_should_be_scraped]
-    #    action: keep
-    #    regex: true
-    #
-    # Example relabel to customize metric path based on endpoints
-    # "example.io/metric_path = <metric path>" annotation.
-    #  - source_labels: [__meta_kubernetes_service_annotation_example_io_metric_path]
-    #    action: replace
-    #    target_label: __metrics_path__
-    #    regex: (.+)
-    #
-    # Example relabel to scrape only single, desired port for the service based
-    # on endpoints "example.io/scrape_port = <port>" annotation.
-    #  - source_labels: [__address__, __meta_kubernetes_service_annotation_example_io_scrape_port]
-    #    action: replace
-    #    regex: ([^:]+)(?::\d+)?;(\d+)
-    #    replacement: $1:$2
-    #    target_label: __address__
-    #
-    # Example relabel to configure scrape scheme for all service scrape targets
-    # based on endpoints "example.io/scrape_scheme = <scheme>" annotation.
-    #  - source_labels: [__meta_kubernetes_service_annotation_example_io_scrape_scheme]
-    #    action: replace
-    #    target_label: __scheme__
-    #    regex: (https?)
-    - action: labelmap
-      regex: __meta_kubernetes_service_label_(.+)
-    - source_labels: [__meta_kubernetes_namespace]
-      action: replace
-      target_label: kubernetes_namespace
-    - source_labels: [__meta_kubernetes_service_name]
-      action: replace
-      target_label: kubernetes_name
+#  # Example scrape config for service endpoints.
+#  #
+#  # The relabeling allows the actual service scrape endpoint to be configured
+#  # for all or only some endpoints.
+#  - job_name: 'kubernetes-service-endpoints'
+#
+#    kubernetes_sd_configs:
+#    - role: endpoints
+#
+#    relabel_configs:
+#    # Example relabel to scrape only endpoints that have
+#    # "example.io/should_be_scraped = true" annotation.
+#    #  - source_labels: [__meta_kubernetes_service_annotation_example_io_should_be_scraped]
+#    #    action: keep
+#    #    regex: true
+#    #
+#    # Example relabel to customize metric path based on endpoints
+#    # "example.io/metric_path = <metric path>" annotation.
+#    #  - source_labels: [__meta_kubernetes_service_annotation_example_io_metric_path]
+#    #    action: replace
+#    #    target_label: __metrics_path__
+#    #    regex: (.+)
+#    #
+#    # Example relabel to scrape only single, desired port for the service based
+#    # on endpoints "example.io/scrape_port = <port>" annotation.
+#    #  - source_labels: [__address__, __meta_kubernetes_service_annotation_example_io_scrape_port]
+#    #    action: replace
+#    #    regex: ([^:]+)(?::\d+)?;(\d+)
+#    #    replacement: $1:$2
+#    #    target_label: __address__
+#    #
+#    # Example relabel to configure scrape scheme for all service scrape targets
+#    # based on endpoints "example.io/scrape_scheme = <scheme>" annotation.
+#    #  - source_labels: [__meta_kubernetes_service_annotation_example_io_scrape_scheme]
+#    #    action: replace
+#    #    target_label: __scheme__
+#    #    regex: (https?)
+#    - action: labelmap
+#      regex: __meta_kubernetes_service_label_(.+)
+#    - source_labels: [__meta_kubernetes_namespace]
+#      action: replace
+#      target_label: kubernetes_namespace
+#    - source_labels: [__meta_kubernetes_service_name]
+#      action: replace
+#      target_label: kubernetes_name
 
   # Example scrape config for probing services via the Blackbox Exporter.
   #
@@ -196,7 +202,7 @@ scrape_configs:
     - source_labels: [__address__]
       target_label: __param_target
     - target_label: __address__
-      replacement: blackbox-exporter.example.com:9115
+      replacement: blackbox-exporter:9115
     - source_labels: [__param_target]
       target_label: instance
     - action: labelmap
@@ -229,7 +235,7 @@ scrape_configs:
       replacement: ${1}://${2}${3}
       target_label: __param_target
     - target_label: __address__
-      replacement: blackbox-exporter.example.com:9115
+      replacement: blackbox-exporter:9115
     - source_labels: [__param_target]
       target_label: instance
     - action: labelmap
@@ -244,32 +250,55 @@ scrape_configs:
   # The relabeling allows the actual pod scrape to be configured
   # for all the declared ports (or port-free target if none is declared)
   # or only some ports.
-  - job_name: 'kubernetes-pods'
+#  - job_name: 'kubernetes-pods'
+#    kubernetes_sd_configs:
+#    - role: pod
+#    relabel_configs:
+#    # Example relabel to scrape only pods that have
+#    # "example.io/should_be_scraped = true" annotation.
+#    #  - source_labels: [__meta_kubernetes_pod_annotation_example_io_should_be_scraped]
+#    #    action: keep
+#    #    regex: true
+#    #
+#    # Example relabel to customize metric path based on pod
+#    # "example.io/metric_path = <metric path>" annotation.
+#    #  - source_labels: [__meta_kubernetes_pod_annotation_example_io_metric_path]
+#    #    action: replace
+#    #    target_label: __metrics_path__
+#    #    regex: (.+)
+#    #
+#    # Example relabel to scrape only single, desired port for the pod
+#    # based on pod "example.io/scrape_port = <port>" annotation.
+#    #  - source_labels: [__address__, __meta_kubernetes_pod_annotation_example_io_scrape_port]
+#    #    action: replace
+#    #    regex: ([^:]+)(?::\d+)?;(\d+)
+#    #    replacement: $1:$2
+#    #    target_label: __address__
+#    - action: labelmap
+#      regex: __meta_kubernetes_pod_label_(.+)
+#    - source_labels: [__meta_kubernetes_namespace]
+#      action: replace
+#      target_label: kubernetes_namespace
+#    - source_labels: [__meta_kubernetes_pod_name]
+#      action: replace
+#      target_label: kubernetes_pod_name
 
+  - job_name: 'kubernetes-pods'
     kubernetes_sd_configs:
     - role: pod
-
     relabel_configs:
-    # Example relabel to scrape only pods that have
-    # "example.io/should_be_scraped = true" annotation.
-    #  - source_labels: [__meta_kubernetes_pod_annotation_example_io_should_be_scraped]
-    #    action: keep
-    #    regex: true
-    #
-    # Example relabel to customize metric path based on pod
-    # "example.io/metric_path = <metric path>" annotation.
-    #  - source_labels: [__meta_kubernetes_pod_annotation_example_io_metric_path]
-    #    action: replace
-    #    target_label: __metrics_path__
-    #    regex: (.+)
-    #
-    # Example relabel to scrape only single, desired port for the pod
-    # based on pod "example.io/scrape_port = <port>" annotation.
-    #  - source_labels: [__address__, __meta_kubernetes_pod_annotation_example_io_scrape_port]
-    #    action: replace
-    #    regex: ([^:]+)(?::\d+)?;(\d+)
-    #    replacement: $1:$2
-    #    target_label: __address__
+    - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+      action: keep
+      regex: true
+    - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+      action: replace
+      target_label: __metrics_path__
+      regex: (.+)
+    - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+      action: replace
+      regex: ([^:]+)(?::\d+)?;(\d+)
+      replacement: $1:$2
+      target_label: __address__
     - action: labelmap
       regex: __meta_kubernetes_pod_label_(.+)
     - source_labels: [__meta_kubernetes_namespace]
@@ -289,9 +318,65 @@ scrape_configs:
     static_configs:
     - targets:
       - 'es-exporter:9114'
+  #################################################################
+  - job_name: demo-blackbox
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+#    static_configs:
+#      - targets:
+#        - https://databricks.com
+#        - https://databrickss.com
+#        - https://databicks.okta.com
+#        - https://gmail.com
+#        - http://192.168.99.100:31240
+#        - http://192.168.99.100:31891
+#        - https://google.com
+#        - https://www.telegraph.co.uk
+    file_sd_configs:
+      - files:
+          - /tmp/prometheus/static-files/demo-blackbox.yaml
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: prometheus-blackbox:9115 # Blackbox exporter.
+#################################################################
+  - job_name: 'demo1-blackbox'
+    scrape_interval: 60s
+    scrape_timeout: 10s
+    metrics_path: /probe
+    params:
+      module: [http_check]
+    file_sd_configs:
+      - files:
+          - /tmp/prometheus/static-files/demo1-blackbox.yaml
+    relabel_configs:
+      - source_labels: [__address__]
+        regex: (.*)(:80)?
+        target_label: __param_target
+        replacement: ${1}
+      - source_labels: [__param_target]
+        regex: (.*)
+        target_label: instance
+        replacement: ${1}
+      - source_labels: []
+        regex: .*
+        target_label: __address__
+        replacement: prometheus-blackbox:9115
+      - source_labels: [checker]
+        regex: (.*)
+        target_label: __param_module
+        replacement: '${1}'
 ####################### PROMETHEUS JOB SECTION ABOVE ####################
 rule_files:
-  - '/etc/prometheus/prometheus.rules'
-  - '/etc/prometheus/kubernetes-monitoring.yaml'
+  - '/tmp/prometheus/rules/prometheus.rules'
+  - '/tmp/prometheus/rules/rules-k8s-monitoring.yaml'
+  - '/tmp/prometheus/rules/rules-es-pushgateway.yaml'
+  - '/tmp/prometheus/rules/rules-infra-monitoring.yaml'
+  - '/tmp/prometheus/rules/rules-redis-exporter.yaml'
+  - '/tmp/prometheus/rules/rules-spark-blackbox.yaml'
 ############# PROMETHEUS RULES FILE LOCATION PATH ABOVE ###################
 

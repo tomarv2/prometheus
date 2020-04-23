@@ -5,6 +5,13 @@ metadata:
   namespace: devops
   labels:
     app: prometheus-monitoring
+  # NOTE: setting up the annotation so that this service will be discovered by Prometheus
+  # for scraping. To make the service available,
+  # set prometheus.io/scrape to true. Ensure that prometheus.io/port
+  # is the targetPort defined in the service.
+  annotations:
+    prometheus.io/scrape: 'true'
+    prometheus.io/port: '9090'
 spec:
   replicas: 1
   selector:
@@ -39,11 +46,22 @@ spec:
 #          protocol: TCP
         volumeMounts:
         - name: prometheus-config-volume
-          mountPath: /etc/prometheus
+          mountPath: /etc/prometheus/config.yaml
+          subPath: config.yaml
+        - name: prometheus-config-volume
+          mountPath: /tmp/prometheus/rules
+        - name: prometheus-config-volume
+          mountPath: /tmp/prometheus/static-files
+        - name: prometheus-storage-volume
+          mountPath: /prometheus/
       volumes:
         - name: prometheus-config-volume
           configMap:
             name: prometheus-config
+        # NOTE: This volume is ephemeral.
+        # If you want this data to be persistent, then you will need to use a persistent volume
+        - name: prometheus-storage-volume
+          emptyDir: {}
          #
          # NOTE: update the right PV and PVC information
          #

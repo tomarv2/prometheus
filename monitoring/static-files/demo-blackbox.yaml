@@ -1,0 +1,11 @@
+- labels:
+    job: demo-blackbox
+  targets:
+  - https://databricks.com
+  - https://databrickss.com
+  - https://databicks.okta.com
+  - https://gmail.com
+  - http://192.168.99.100:31240
+  - http://192.168.99.100:31891
+  - https://google.com
+  - https://www.telegraph.co.uk

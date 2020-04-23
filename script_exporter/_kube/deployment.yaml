@@ -22,7 +22,7 @@ spec:
           - >
             apt-get install wget;
             pip install prometheus_client;
-            wget http://demo.com/projects/DP/repos/nifi/raw/nifi_monitoring/test.py -O /tmp/test.py;
+            wget http://demo.com/projects/DP/repos/demo/raw/demo_monitoring/test.py -O /tmp/test.py;
             chmod +x /tmp/test.py;
             python3 /tmp/test.py
         securityContext:
@@ -31,18 +31,16 @@ spec:
          - name: web
            containerPort: 9172
         volumeMounts:
-        - name: nifi-volume
-          mountPath: /mnt/nifi
-          subPath: nifi
+        - name: demo-volume
+          mountPath: /mnt/demo
+          subPath: demo
         - name: prom-exporter-configmap-volume
           mountPath: /etc/script-exporter/script-exporter.yml
           subPath: script-exporter.yml
       volumes:
-      - name: nifi-volume
+      - name: demo-volume
         persistentVolumeClaim:
-          claimName: nifi-nfs-pvc
+          claimName: demo-nfs-pvc
       - name: prom-exporter-configmap-volume
         configmap:
           name: prom-exporter-configmap
-
-# /bin/script-exporter -config.shell="/bin/sh" -web.listen-address=":9172" -web.telemetry-path="/metrics" -config.file=/etc/script-exporter/script-exporter.yml

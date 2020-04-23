@@ -11,15 +11,15 @@ templates:
 - /etc/alertmanager/template/*.tmpl
 
 #####################################################
-inhibit_rules:
-- source_match:
-    severity: critical
-  target_match:
-    severity: warning
-  equal:
-  - alertname
-  - cluster
-  - service
+#inhibit_rules:
+#- source_match:
+#    severity: critical
+#  target_match:
+#    severity: warning
+#  equal:
+#  - alertname
+#  - cluster
+#  - service
 
 #####################################################
 route:
@@ -38,8 +38,10 @@ route:
       service: kubernetes-monitoring-blackbox
 
   - receiver: 'demo-service-team'
-    match:
-      service: demo-service-blackbox
+    match_re:
+      service: ^(prom*)$
+#    match:
+#      service: demo-service-blackbox
 ################ ALERT_ROUTES ABOVE #################
 #####################################################
 receivers:

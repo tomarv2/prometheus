@@ -18,4 +18,9 @@ This repo contains 6 components that we use in our environment to monitor our k8
 - Unsee - Decommissioned (https://github.com/cloudflare/unsee) - There has been no commit to this project for a long time
 - Elastalert (There is not covered in this repo: https://github.com/Yelp/elastalert)
 
-**Note:** This is part of a automation project that will become public one day.
+**Note:** 
+
+- This is part of a automation project that will become public one day.
+- Linux: root user or CAP_NET_RAW capability is required.
+- Can be set by executing setcap cap_net_raw+ep blackbox_exporter
+

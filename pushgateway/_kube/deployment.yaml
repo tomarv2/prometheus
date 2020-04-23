@@ -16,14 +16,13 @@ spec:
       terminationGracePeriodSeconds: 10
       containers:
       - name: prometheus-pushgateway
-        #image: ecr.demo.com/demo/devops/prometheus-custom-script:v01
-        image: prom/pushgateway
+        image: prom/pushgateway:v1.2.0
         imagePullPolicy: Always
 #        command:
 #          - "/bin/sh"
 #          - "-c"
 #          - >
-#            while true; do echo "demo `if [ -f /mnt/nifi/demo/test_nifi_template_status.txt ]; then echo 0; else echo 1; fi `"| curl --data-binary @- http://prom-pushgateway:9091/metrics/job/demo; sleep 60; done
+#            while true; do echo "demo `if [ -f /mnt/dmeo/demo/test_dmeo_template_status.txt ]; then echo 0; else echo 1; fi `"| curl --data-binary @- http://prom-pushgateway:9091/metrics/job/demo; sleep 60; done
         securityContext:
           privileged: true
         ports:
@@ -37,16 +36,16 @@ spec:
 #            cpu: 1000m
 #            memory: 2Gi
 #        volumeMounts:
-#        - name: nifi-volume
-#          mountPath: /mnt/nifi
-#          subPath: nifi
+#        - name: dmeo-volume
+#          mountPath: /mnt/dmeo
+#          subPath: dmeo
 #        - name: prom-exporter-configmap-volume
 #          mountPath: /etc/script-exporter/script-exporter.yml
 #          subPath: script-exporter.yml
 #      volumes:
-#      - name: nifi-volume
+#      - name: dmeo-volume
 #        persistentVolumeClaim:
-#          claimName: nifi-nfs-pvc
+#          claimName: dmeo-nfs-pvc
 #      - name: prom-exporter-configmap-volume
 #        configmap:
 #          name: prom-exporter-configmap

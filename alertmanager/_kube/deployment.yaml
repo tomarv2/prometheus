@@ -15,11 +15,12 @@ spec:
       labels:
         app: prometheus-alertmanager
     spec:
+      serviceAccountName: prometheus
       containers:
       - name: prometheus-alertmanager
         securityContext:
           privileged: true
-        image: prom/alertmanager:latest
+        image: prom/alertmanager:v0.20.0
 #        imagePullPolicy: Always
         command:
           - "/bin/sh"
