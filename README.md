@@ -3,6 +3,7 @@
 This repo is used to deploy monitoring for a k8s cluster. There are two parts to monitoring a k8s cluster:
 - Monitoring the cluster itself
 - Monitoring the application(s) deployed on the cluster
+- Also, there is a component to send alerts on elasticsearch results using elastalert
 
 I am using 6 components to monitor the k8s infrastructure:
 
