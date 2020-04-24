@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: sharedservices
+  name: elastalert-update-lma
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        cluster: elastalert-update-lma
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+      - name: elastalert-update-lma
+        image: ecr.demo.com/devops/monitoring-base:latest
+        command:
+          - "/bin/sh"
+          - "-c"
+          - >
+            set -x;
+            chmod 400 /tmp/secret/id_rsa;
+            python /automation/change_on_elastalert_repo/source/main_ea_change.py;
+            sleep 60;
+            curl -XPOST http://prometheus-monitoring.sharedservices:9090/-/reload;
+            curl -XPOST http://prometheus-am.sharedservices:9093/-/reload;
+            sleep infinity
+        volumeMounts:
+        - name: monitoring-volume
+          mountPath: /mnt
+        - name: ssh-config-volume
+          mountPath: "/tmp/secret"
+      volumes:
+      - name: monitoring-volume
+        persistentVolumeClaim:
+          claimName: monitoring-nfs-pvc  # update claim to standard name
+      - name: ssh-config-volume
+        secret:
+          secretName: ssh-config

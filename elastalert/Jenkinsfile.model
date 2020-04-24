@@ -1,0 +1,100 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    options {
+      disableConcurrentBuilds()
+      buildDiscarder(logRotator(numToKeepStr: '1'))
+    }
+    agent { label 'demo' }
+    stages {
+        stage('Prepare Build') {
+            when {
+                anyOf {
+                    branch "development"
+                    branch "devops"
+                }
+            }
+            steps {
+                // grab info from pom file
+                script {
+                    pom = readMavenPom()
+                    env.nameSpace = "demo"
+                    env.serviceName = "elastalert"
+                    env.dockerPath = "demo/devops/${env.serviceName}"
+                }
+                checkout scm
+                sh "git rev-parse --short HEAD > .git/commit-id"
+                withMaven(maven: 'M3') {
+                    sh 'mvn clean -U'
+                }
+            }
+        }
+        stage('QA: test elastalert') {
+            when {
+                anyOf {
+                    branch "development"
+                    branch "devops"
+                }
+            }
+            steps {
+                script {
+                    env.commit_id = readFile('.git/commit-id')
+                }
+                withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_qa', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
+                    sh "echo test"
+                }
+            }
+        }
+        stage('QA: Deploy elastalert') {
+            when {
+                anyOf {
+                    branch "development"
+                    branch "devops"
+                }
+            }
+            steps {
+                script {
+                    env.commit_id = readFile('.git/commit-id')
+                }
+                withCredentials([usernamePassword(credentialsId: 'k8s_cluster_pwd_qa', passwordVariable: 'k8s_pwd', usernameVariable: 'k8s_user')]) {
+                    sh "echo test"
+                }
+            }
+        }
+    }
+    post {
+        always {
+            writeFile file: "build.properties", text: "NAMESPACE=${env.NameSpace}"
+            archiveArtifacts 'build.properties'
+            cleanWs()
+        }
+    }
+}
+
+
+@NonCPS
+def static cleanBranchName(String branchName) {
+    return branchName.replaceAll("/", "-")
+}
+
+@NonCPS
+def getChangeString() {
+    MAX_MSG_LEN = 100
+    def changeString = ""
+
+    echo "Gathering SCM changes"
+    def changeLogSets = currentBuild.changeSets
+    for (int i = 0; i < changeLogSets.size(); i++) {
+        def entries = changeLogSets[i].items
+        for (int j = 0; j < entries.length; j++) {
+            def entry = entries[j]
+            truncated_msg = entry.msg.take(MAX_MSG_LEN)
+            changeString += " - ${truncated_msg} [${entry.author}]\n"
+        }
+    }
+
+    if (!changeString) {
+        changeString = " - No new changes"
+    }
+    return changeString
+}

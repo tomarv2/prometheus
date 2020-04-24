@@ -1,0 +1,16 @@
+es_host: elasticsearch.default
+es_port: 9200
+name: stg-demo-spark
+type: any
+index: spark-logs-*
+filter:
+- query:
+    query_string:
+      query: "Severity: \"SEVERITY-1\" AND container_name: \"stg-demo-spark\""
+
+alert:
+ - "email"
+email:
+ - "demo@demo.com"
+
+alert_subject:  "Env: stage - stg-demo - Type: Application(spark)"

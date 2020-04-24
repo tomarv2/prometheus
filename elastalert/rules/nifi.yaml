@@ -1,0 +1,18 @@
+es_host: elasticsearch.default
+es_port: 9200
+name: Demo-nifi
+type: any
+index: nifi-*
+num_events: 1
+timeframe:
+  minutes: 1
+filter:
+- query:
+    query_string:
+      query: "Severity: \"SEVERITY-1\" AND PipelineName:\"Demo\" AND namespace:(-stg)"
+
+alert:
+- "pagerduty"
+alert_subject:  "Env: prod - Pipeline: Demo - Type: Application(nifi)"
+pagerduty_service_key: 12345
+pagerduty_client_name: elastalert

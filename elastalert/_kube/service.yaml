@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: elastalert
+  namespace: sharedservices
+spec:
+  ports:
+    - port: 3030
+      targetPort: 3030
+      name: http
+  selector:
+    component: elastalert

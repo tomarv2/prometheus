@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: elastalert-deployment
+  namespace: sharedservices
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        component: elastalert
+    spec:
+       containers:
+         - name: elastalert
+           image: ecr.demo.com/devops/elastalert:v05
+           command:
+            - "/bin/sh"
+            - "-c"
+            - >
+              set -x;
+              python elastalert/elastalert.py --config /mnt/monitoring/elastalert/config.yaml --verbose
+           ports:
+             - containerPort: 3030
+           env:
+           volumeMounts:
+             - name: elastalert-config-volume
+               mountPath: /home/elastalert/elastalert/alerts.py
+               subPath: alerts.py
+             - name: monitoring-nfs-volume
+               mountPath: /mnt
+#               subPath: config.yaml
+#             - name: elastalert-nfs-volume
+#               mountPath: /home/elastalert/rules
+       volumes:
+        - name: elastalert-config-volume
+          configMap:
+            name: elastalert-config
+        - name: monitoring-nfs-volume
+          persistentVolumeClaim:
+            claimName: monitoring-nfs-pvc
