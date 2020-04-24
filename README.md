@@ -16,8 +16,8 @@ I am using 6 components to monitor the k8s infrastructure:
 
 
 ## Note:
-- I am using EFS to store all the deployment related files. For example all files for prometheus, blackbox, etc
-are stored in EFS and shared by all the k8s clusters.
+- I am using EFS to store all the deployment related files. For example all files for prometheus, alertmanager, blackbox, etc
+are stored in EFS and shared by all the k8s clusters (working on moving out of EFS).
 
 <p align="center">
   <img width="600" height="370" src="https://files.gitter.im/tomarv2/hhdj/Screen-Shot-2020-04-23-at-8.48.17-AM.png">
