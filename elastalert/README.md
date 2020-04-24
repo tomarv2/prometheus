@@ -1,3 +1,5 @@
 **Elastalert**
 
-**elastalert repo:** https://github.com/Yelp/elastalert
+**elastalert:** https://github.com/Yelp/elastalert
+
+- It sends alerts based on elasticsearch

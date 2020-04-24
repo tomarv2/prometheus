@@ -11,8 +11,9 @@ I am using 6 components to monitor the k8s infrastructure:
 - **Blackbox** - https://github.com/prometheus/blackbox_exporter
 - **Pushgateway** - https://github.com/prometheus/pushgateway
 - **Grafana** - https://grafana.com/
+- **Elastalert** - https://github.com/Yelp/elastalert
 - **Unsee(Decommissioned)** - There has been no commit to this project for a long time (https://github.com/cloudflare/unsee).
-- **Elastalert** - This is not covered in this repo (https://github.com/Yelp/elastalert), working on it.
+
 
 ## Note:
 - I am using EFS to store all the deployment related files. For example all files for prometheus, blackbox, etc
