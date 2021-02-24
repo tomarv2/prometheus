@@ -1,4 +1,17 @@
-# k8s: configuring monitoring
+<p align="center">
+    <a href="https://www.apache.org/licenses/LICENSE-2.0" alt="license">
+        <img src="https://img.shields.io/github/license/tomarv2/monitoring" /></a>
+    <a href="https://github.com/tomarv2/monitoring/tags" alt="GitHub tag">
+        <img src="https://img.shields.io/github/v/tag/tomarv2/monitoring" /></a>
+    <a href="https://stackoverflow.com/users/6679867/tomarv2" alt="Stack Exchange reputation">
+        <img src="https://img.shields.io/stackexchange/stackoverflow/r/6679867"></a>
+    <a href="https://discord.gg/XH975bzN" alt="chat on Discord">
+        <img src="https://img.shields.io/discord/813961944443912223?logo=discord"></a>
+    <a href="https://twitter.com/intent/follow?screen_name=varuntomar2019" alt="follow on Twitter">
+        <img src="https://img.shields.io/twitter/follow/varuntomar2019?style=social&logo=twitter"></a>
+</p>
+
+# k8s: Monitoring
 
 This repo is used to deploy monitoring for a k8s cluster. There are two parts to monitoring a k8s cluster:
 - Monitoring the cluster itself
@@ -21,7 +34,7 @@ I am using 6 components to monitor the k8s infrastructure:
 are stored in EFS and shared by all the k8s clusters (working on moving out of EFS).
 
 <p align="center">
-  <img width="600" height="370" src="https://files.gitter.im/tomarv2/hhdj/Screen-Shot-2020-04-23-at-8.48.17-AM.png">
+  <img width="600" height="370" src="https://miro.medium.com/max/1400/1*Tp1kUoGHRPmB4wik1kKHkA.png">
 </p>
 
 ***
